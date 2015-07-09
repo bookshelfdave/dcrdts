@@ -1,25 +1,14 @@
 import std.stdio;
-import std.conv;
-import std.container;
-import std.range;
-import std.algorithm.searching;
 
-import crdts;
+import dcrdts;
 
-
-
-void main() {
+void main(string[] args) {
+  // unittests don't run unless there are template instantiations...?
   GSet!int g = new GSet!int();
-  g.add(1);
-  g.add(2);
-  g.add(3);
-  writeln(g.elements());
+//  g.add(1);
+//  g.add(2);
 
   TwoPSet!int ps = new TwoPSet!int();
-  ps.add(1);
-  ps.add(2);
-  ps.add(3);
-  ps.remove(1);
-  ps.add(1);
-  writeln(ps.elements());
+ // ps.add(1);
+ // ps.add(2);
 }

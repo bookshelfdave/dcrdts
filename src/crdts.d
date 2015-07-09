@@ -1,8 +1,10 @@
+module dcrdts;
 import std.stdio;
 import std.conv;
 import std.container;
 import std.range;
 import std.algorithm.searching;
+
 
 class GSet(T) {
   public RedBlackTree!T rbt;
@@ -110,7 +112,38 @@ class TwoPSet(T) {
   }
 
   unittest {
-    assert(false);
+    TwoPSet!int psa = new TwoPSet!int();
+    psa.add(1);
+    psa.add(2);
+    psa.add(3);
+    psa.remove(2);
+    psa.add(2);
+    assert(psa.contains(1));
+    assert(!psa.contains(2));
+    assert(psa.contains(3));
+
+    TwoPSet!int psb = new TwoPSet!int();
+    psb.add(10);
+    psb.remove(100);
+    psb.add(11);
+    psb.add(12);
+    psb.remove(12);
+    psb.add(12);
+
+    assert(psb.contains(10));
+    assert(psb.contains(11));
+    assert(!psb.contains(12));
+
+    psa.join(psb);
+    assert(psa.contains(1));
+    assert(psa.contains(3));
+    assert(psa.contains(10));
+    assert(psa.contains(11));
+    psa.add(2); // tombstone prevents addition
+    assert(!psa.contains(2));
+    psa.add(12); // tombstone prevents addition
+    assert(!psa.contains(12));
+
   }
 
 }
