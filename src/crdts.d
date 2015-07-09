@@ -148,4 +148,11 @@ class TwoPSet(T) {
 
 }
 
+class GCounter(T) {
+  string id;
 
+  this(string id) {
+    this.id = id;
+  }
+
+}
