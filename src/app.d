@@ -4,61 +4,22 @@ import std.container;
 import std.range;
 import std.algorithm.searching;
 
-class GSet(T) {
-  public RedBlackTree!T rbt;
+import crdts;
 
-  this() {
-    rbt = new RedBlackTree!T();
-  }
 
-  void add(T t) {
-    rbt.insert(t);
-  }
-
-  bool contains(T elem) {
-    return elem in rbt;
-  }
-
-  void join(GSet other) {
-    foreach(o; other.rbt[]) {
-      rbt.insert(o);
-    }
-  }
-
-  unittest {
-    auto g = new GSet!int();
-    g.add(1);
-    g.add(2);
-    assert(g.contains(1));
-    assert(g.contains(2));
-    assert(!g.contains(5));
-    assert(!g.contains(6));
-
-    auto h = new GSet!int();
-    h.add(2);
-    h.add(6);
-    assert(h.contains(2));
-    assert(h.contains(6));
-    assert(!h.contains(1));
-
-    g.join(h);
-    assert(g.contains(1));
-    assert(g.contains(2));
-    assert(g.contains(6));
-  }
-
-}
 
 void main() {
-  auto g = new GSet!int();
+  GSet!int g = new GSet!int();
   g.add(1);
   g.add(2);
+  g.add(3);
+  writeln(g.elements());
 
-
-  auto h = new GSet!int();
-  h.add(5);
-  h.add(6);
-
-  g.join(h);
-  //writeln(g.contains(5));
+  TwoPSet!int ps = new TwoPSet!int();
+  ps.add(1);
+  ps.add(2);
+  ps.add(3);
+  ps.remove(1);
+  ps.add(1);
+  writeln(ps.elements());
 }
